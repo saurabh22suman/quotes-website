@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  quotes-website:
+    build: .
+    container_name: quotes-website
+    ports:
+      - "80:80"
+    restart: unless-stopped
+    volumes:
+      - ./src/data:/usr/share/nginx/html/data:ro
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M

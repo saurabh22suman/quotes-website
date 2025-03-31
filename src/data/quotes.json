@@ -1,0 +1,86 @@
+{
+  "romantic": [
+    {
+      "text": "Love is composed of a single soul inhabiting two bodies.",
+      "author": "Aristotle"
+    },
+    {
+      "text": "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine.",
+      "author": "Maya Angelou"
+    },
+    {
+      "text": "I love you not because of who you are, but because of who I am when I am with you.",
+      "author": "Roy Croft"
+    },
+    {
+      "text": "You know you're in love when you can't fall asleep because reality is finally better than your dreams.",
+      "author": "Dr. Seuss"
+    },
+    {
+      "text": "The best thing to hold onto in life is each other.",
+      "author": "Audrey Hepburn"
+    },
+    {
+      "text": "To love and be loved is to feel the sun from both sides.",
+      "author": "David Viscott"
+    },
+    {
+      "text": "Love doesn't make the world go 'round. Love is what makes the ride worthwhile.",
+      "author": "Franklin P. Jones"
+    },
+    {
+      "text": "Being deeply loved by someone gives you strength, while loving someone deeply gives you courage.",
+      "author": "Lao Tzu"
+    },
+    {
+      "text": "The greatest happiness of life is the conviction that we are loved; loved for ourselves, or rather, loved in spite of ourselves.",
+      "author": "Victor Hugo"
+    },
+    {
+      "text": "Love is like the wind, you can't see it but you can feel it.",
+      "author": "Nicholas Sparks"
+    }
+  ],
+  "motivational": [
+    {
+      "text": "The future belongs to those who believe in the beauty of their dreams.",
+      "author": "Eleanor Roosevelt"
+    },
+    {
+      "text": "It does not matter how slowly you go as long as you do not stop.",
+      "author": "Confucius"
+    },
+    {
+      "text": "Believe you can and you're halfway there.",
+      "author": "Theodore Roosevelt"
+    },
+    {
+      "text": "The only way to do great work is to love what you do.",
+      "author": "Steve Jobs"
+    },
+    {
+      "text": "Don't watch the clock; do what it does. Keep going.",
+      "author": "Sam Levenson"
+    },
+    {
+      "text": "Your time is limited, don't waste it living someone else's life.",
+      "author": "Steve Jobs"
+    },
+    {
+      "text": "The purpose of our lives is to be happy.",
+      "author": "Dalai Lama"
+    },
+    {
+      "text": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+      "author": "Winston Churchill"
+    },
+    {
+      "text": "The only limit to our realization of tomorrow will be our doubts of today.",
+      "author": "Franklin D. Roosevelt"
+    },
+    {
+      "text": "Life is what happens when you're busy making other plans.",
+      "author": "John Lennon"
+    }
+  ]
+}

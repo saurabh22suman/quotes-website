@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirational Quotes - Standalone Version</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ff6b6b;
+            --secondary-color: #f9f7f7;
+            --text-color: #333;
+            --accent-color: #ffd8d8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            text-align: center;
+        }
+
+        header {
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--primary-color);
+            margin: 1.5rem 0;
+            font-size: 1.5rem;
+        }
+
+        .category-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .category-toggle button {
+            background: none;
+            border: 2px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .category-toggle button.active {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .quote-container {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        cite {
+            font-style: normal;
+            font-weight: 300;
+            display: block;
+            text-align: right;
+            margin-top: 1rem;
+            transition: opacity 0.3s ease;
+        }
+
+        .quote-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .icon-btn .fa-heart {
+            transition: all 0.3s ease;
+        }
+
+        .icon-btn .fas.fa-heart {
+            color: var(--primary-color);
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #e05555;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Falling petals animation */
+        .petal-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .petal {
+            position: absolute;
+            background-color: var(--accent-color);
+            border-radius: 150% 0 150% 0;
+            animation: falling linear infinite;
+        }
+
+        @keyframes falling {
+            0% {
+                transform: translateY(-5%) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Favorites styles */
+        .favorites-container {
+            margin-top: 2rem;
+            border-top: 1px solid #eee;
+            padding-top: 1rem;
+        }
+
+        .favorites-list {
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 1rem 0;
+            text-align: left;
+        }
+
+        .favorite-item {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .favorite-item:last-child {
+            border-bottom: none;
+        }
+
+        .favorite-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .favorite-author {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .remove-favorite {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            background: none;
+            border: none;
+            color: #ccc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-favorite:hover {
+            color: var(--primary-color);
+        }
+
+        .empty-favorites {
+            padding: 2rem;
+            text-align: center;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+                margin: 0 1rem;
+                max-width: 100%;
+            }
+            
+            blockquote {
+                font-size: 1.4rem;
+            }
+            
+            .category-toggle {
+                gap: 0.5rem;
+            }
+            
+            .category-toggle button {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="petal-container" id="petalContainer"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Daily Inspiration</h1>
+            <div class="category-toggle">
+                <button id="romanticBtn" class="active">Romantic</button>
+                <button id="motivationalBtn">Motivational</button>
+                <button id="favoritesBtn">Favorites <span id="favCount">(0)</span></button>
+            </div>
+        </header>
+        
+        <main>
+            <div class="quote-container">
+                <blockquote id="quoteText">Love is composed of a single soul inhabiting two bodies.</blockquote>
+                <cite id="quoteAuthor">- Aristotle</cite>
+                <div class="quote-actions">
+                    <button id="favoriteBtn" class="icon-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <button id="newQuoteBtn" class="btn">New Quote</button>
+            
+            <div id="favoritesContainer" class="favorites-container" style="display: none;">
+                <h2>Your Favorite Quotes</h2>
+                <div id="favoritesList" class="favorites-list">
+                    <!-- Favorites will be populated here -->
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Refresh for a new quote or click the button above</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM elements
+            const quoteText = document.getElementById('quoteText');
+            const quoteAuthor = document.getElementById('quoteAuthor');
+            const newQuoteBtn = document.getElementById('newQuoteBtn');
+            const romanticBtn = document.getElementById('romanticBtn');
+            const motivationalBtn = document.getElementById('motivationalBtn');
+            const favoritesBtn = document.getElementById('favoritesBtn');
+            const favoriteBtn = document.getElementById('favoriteBtn');
+            const favCount = document.getElementById('favCount');
+            const petalContainer = document.getElementById('petalContainer');
+            const favoritesContainer = document.getElementById('favoritesContainer');
+            const favoritesList = document.getElementById('favoritesList');
+            
+            // Quotes data embedded directly
+            const quotes = {
+                "romantic": [
+                    {
+                        "text": "Love is composed of a single soul inhabiting two bodies.",
+                        "author": "Aristotle"
+                    },
+                    {
+                        "text": "In all the world, there is no heart for me like yours. In all the world, there is no love for you like mine.",
+                        "author": "Maya Angelou"
+                    },
+                    {
+                        "text": "I love you not because of who you are, but because of who I am when I am with you.",
+                        "author": "Roy Croft"
+                    },
+                    {
+                        "text": "You know you're in love when you can't fall asleep because reality is finally better than your dreams.",
+                        "author": "Dr. Seuss"
+                    },
+                    {
+                        "text": "The best thing to hold onto in life is each other.",
+                        "author": "Audrey Hepburn"
+                    }
+                ],
+                "motivational": [
+                    {
+                        "text": "The future belongs to those who believe in the beauty of their dreams.",
+                        "author": "Eleanor Roosevelt"
+                    },
+                    {
+                        "text": "It does not matter how slowly you go as long as you do not stop.",
+                        "author": "Confucius"
+                    },
+                    {
+                        "text": "Believe you can and you're halfway there.",
+                        "author": "Theodore Roosevelt"
+                    },
+                    {
+                        "text": "The only way to do great work is to love what you do.",
+                        "author": "Steve Jobs"
+                    },
+                    {
+                        "text": "Don't watch the clock; do what it does. Keep going.",
+                        "author": "Sam Levenson"
+                    }
+                ]
+            };
+            
+            // State
+            let currentCategory = 'romantic';
+            let currentQuote = null;
+            let favorites = [];
+            
+            // Load favorites from localStorage
+            function loadFavorites() {
+                const storedFavorites = localStorage.getItem('quotesFavorites');
+                if (storedFavorites) {
+                    favorites = JSON.parse(storedFavorites);
+                    updateFavoritesCount();
+                }
+            }
+            
+            // Save favorites to localStorage
+            function saveFavorites() {
+                localStorage.setItem('quotesFavorites', JSON.stringify(favorites));
+                updateFavoritesCount();
+            }
+            
+            // Update favorites count
+            function updateFavoritesCount() {
+                favCount.textContent = `(${favorites.length})`;
+            }
+            
+            // Check if current quote is favorited
+            function isCurrentQuoteFavorited() {
+                if (!currentQuote) return false;
+                
+                return favorites.some(fav => 
+                    fav.text === currentQuote.text && 
+                    fav.author === currentQuote.author
+                );
+            }
+            
+            // Update favorite button state
+            function updateFavoriteButton() {
+                const heartIcon = favoriteBtn.querySelector('i');
+                
+                if (isCurrentQuoteFavorited()) {
+                    heartIcon.classList.remove('far');
+                    heartIcon.classList.add('fas');
+                } else {
+                    heartIcon.classList.remove('fas');
+                    heartIcon.classList.add('far');
+                }
+            }
+            
+            // Toggle favorite status of current quote
+            function toggleFavorite() {
+                if (!currentQuote) return;
+                
+                const isFavorited = isCurrentQuoteFavorited();
+                
+                if (isFavorited) {
+                    // Remove from favorites
+                    favorites = favorites.filter(fav => 
+                        !(fav.text === currentQuote.text && fav.author === currentQuote.author)
+                    );
+                } else {
+                    // Add to favorites
+                    favorites.push({
+                        text: currentQuote.text,
+                        author: currentQuote.author,
+                        category: currentCategory
+                    });
+                }
+                
+                saveFavorites();
+                updateFavoriteButton();
+                renderFavoritesList();
+            }
+            
+            // Render favorites list
+            function renderFavoritesList() {
+                favoritesList.innerHTML = '';
+                
+                if (favorites.length === 0) {
+                    favoritesList.innerHTML = '<div class="empty-favorites">You have no favorite quotes yet.</div>';
+                    return;
+                }
+                
+                favorites.forEach((fav, index) => {
+                    const favoriteItem = document.createElement('div');
+                    favoriteItem.classList.add('favorite-item');
+                    
+                    const favoriteText = document.createElement('div');
+                    favoriteText.classList.add('favorite-text');
+                    favoriteText.textContent = fav.text;
+                    
+                    const favoriteAuthor = document.createElement('div');
+                    favoriteAuthor.classList.add('favorite-author');
+                    favoriteAuthor.textContent = fav.author ? `- ${fav.author}` : '';
+                    
+                    const removeButton = document.createElement('button');
+                    removeButton.classList.add('remove-favorite');
+                    removeButton.innerHTML = '<i class="fas fa-times"></i>';
+                    removeButton.addEventListener('click', () => {
+                        favorites.splice(index, 1);
+                        saveFavorites();
+                        renderFavoritesList();
+                        updateFavoriteButton();
+                    });
+                    
+                    favoriteItem.appendChild(favoriteText);
+                    favoriteItem.appendChild(favoriteAuthor);
+                    favoriteItem.appendChild(removeButton);
+                    
+                    favoritesList.appendChild(favoriteItem);
+                });
+            }
+            
+            // Display random quote from current category
+            function displayRandomQuote() {
+                if (!quotes[currentCategory] || quotes[currentCategory].length === 0) return;
+                
+                const randomIndex = Math.floor(Math.random() * quotes[currentCategory].length);
+                currentQuote = quotes[currentCategory][randomIndex];
+                
+                // Fade out
+                quoteText.style.opacity = 0;
+                quoteAuthor.style.opacity = 0;
+                
+                setTimeout(() => {
+                    quoteText.textContent = currentQuote.text;
+                    quoteAuthor.textContent = currentQuote.author ? `- ${currentQuote.author}` : '';
+                    
+                    // Fade in
+                    quoteText.style.opacity = 1;
+                    quoteAuthor.style.opacity = 1;
+                    
+                    updateFavoriteButton();
+                }, 300);
+            }
+            
+            // Create falling petals
+            function createPetals() {
+                // Clear existing petals
+                petalContainer.innerHTML = '';
+                
+                // Only show petals for romantic category
+                if (currentCategory !== 'romantic') return;
+                
+                const petalCount = 20;
+                
+                for (let i = 0; i < petalCount; i++) {
+                    const petal = document.createElement('div');
+                    petal.classList.add('petal');
+                    
+                    // Random properties
+                    const size = Math.random() * 15 + 10;
+                    const left = Math.random() * 100;
+                    const delay = Math.random() * 10;
+                    const duration = Math.random() * 10 + 10;
+                    
+                    // Apply styles
+                    petal.style.width = `${size}px`;
+                    petal.style.height = `${size}px`;
+                    petal.style.left = `${left}%`;
+                    petal.style.animationDelay = `${delay}s`;
+                    petal.style.animationDuration = `${duration}s`;
+                    
+                    petalContainer.appendChild(petal);
+                }
+            }
+            
+            // Show quotes view
+            function showQuotesView() {
+                favoritesContainer.style.display = 'none';
+                quoteText.parentElement.style.display = 'block';
+                newQuoteBtn.style.display = 'inline-block';
+                
+                romanticBtn.classList.remove('active');
+                motivationalBtn.classList.remove('active');
+                favoritesBtn.classList.remove('active');
+                
+                if (currentCategory === 'romantic') {
+                    romanticBtn.classList.add('active');
+                } else {
+                    motivationalBtn.classList.add('active');
+                }
+            }
+            
+            // Show favorites view
+            function showFavoritesView() {
+                quoteText.parentElement.style.display = 'none';
+                newQuoteBtn.style.display = 'none';
+                favoritesContainer.style.display = 'block';
+                
+                romanticBtn.classList.remove('active');
+                motivationalBtn.classList.remove('active');
+                favoritesBtn.classList.add('active');
+                
+                renderFavoritesList();
+            }
+            
+            // Event listeners
+            newQuoteBtn.addEventListener('click', displayRandomQuote);
+            
+            favoriteBtn.addEventListener('click', toggleFavorite);
+            
+            romanticBtn.addEventListener('click', function() {
+                currentCategory = 'romantic';
+                showQuotesView();
+                createPetals();
+                displayRandomQuote();
+            });
+            
+            motivationalBtn.addEventListener('click', function() {
+                currentCategory = 'motivational';
+                showQuotesView();
+                createPetals(); // This will clear petals
+                displayRandomQuote();
+            });
+            
+            favoritesBtn.addEventListener('click', showFavoritesView);
+            
+            // Initialize
+            loadFavorites();
+            displayRandomQuote();
+            createPetals();
+        });
+    </script>
+</body>
+</html>

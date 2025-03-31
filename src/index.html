@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspirational Quotes</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="petal-container" id="petalContainer"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Daily Inspiration</h1>
+            <div class="category-toggle">
+                <button id="romanticBtn" class="active">Romantic</button>
+                <button id="motivationalBtn">Motivational</button>
+                <button id="favoritesBtn">Favorites <span id="favCount">(0)</span></button>
+            </div>
+        </header>
+        
+        <main>
+            <div class="quote-container">
+                <blockquote id="quoteText">Love is composed of a single soul inhabiting two bodies.</blockquote>
+                <cite id="quoteAuthor">- Aristotle</cite>
+                <div class="quote-actions">
+                    <button id="favoriteBtn" class="icon-btn">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+            </div>
+            <button id="newQuoteBtn" class="btn">New Quote</button>
+            
+            <div id="favoritesContainer" class="favorites-container" style="display: none;">
+                <h2>Your Favorite Quotes</h2>
+                <div id="favoritesList" class="favorites-list">
+                    <!-- Favorites will be populated here -->
+                </div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Refresh for a new quote or click the button above</p>
+        </footer>
+    </div>
+    
+    <script src="js/main.js"></script>
+</body>
+</html>
