@@ -299,7 +299,25 @@
     </div>
     
     <script>
+        // Add error handling
+        window.onerror = function(message, source, lineno, colno, error) {
+            alert('Error: ' + message + '\nLine: ' + lineno);
+            console.error('Error:', message, 'Line:', lineno, 'Error object:', error);
+            return true;
+        };
+        
+        // Add console log polyfill for older browsers
+        if (!window.console) {
+            window.console = {
+                log: function() {},
+                error: function() {}
+            };
+        }
+        
+        console.log('Script starting...');
+        
         document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM fully loaded');
             // DOM elements
             const quoteText = document.getElementById('quoteText');
             const quoteAuthor = document.getElementById('quoteAuthor');
